@@ -8,11 +8,12 @@ namespace CurseUnlock {
         public const string Version = "0.1.0";
 
         private static Harmony harmony;
-        private static ConfigEntry unlockIdeas;
+        private static ConfigEntry<bool> unlockIdeas;
 
         private void Awake() {
-            unlockIdeas = Config.GetEntry<bool>("Unlock Ideas", true);
-            unlockIdeas.ExtraData["tooltip"] = "Unlocks all ideas, currently only the sidebar is affected";
+            unlockIdeas = Config.GetEntry<bool>("Unlock Ideas", true, new ConfigUI {
+                Tooltip = "Unlocks all ideas, currently only the sidebar is affected",
+            });
 
             harmony = new Harmony(GUID);
             harmony.PatchAll();
@@ -29,7 +30,7 @@ namespace CurseUnlock {
 
         [HarmonyPatch(typeof(GameScreen), nameof(GameScreen.KnowledgeWasFound)), HarmonyPostfix]
         private static void SetKnowledgeWasFound(ref bool __result) {
-            if (unlockIdeas.GetBool()) {
+            if (unlockIdeas.Value) {
                 __result = true;
             }
         }
