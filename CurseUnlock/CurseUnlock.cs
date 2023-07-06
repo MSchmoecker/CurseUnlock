@@ -5,7 +5,7 @@ namespace CurseUnlock {
     public class CurseUnlock : Mod {
         public const string Name = "Curse Unlock";
         public const string GUID = "com.maxsch.stacklands.curseunlock";
-        public const string Version = "0.1.0";
+        public const string Version = "0.1.1";
 
         private static Harmony harmony;
         private static ConfigEntry<bool> unlockIdeas;
